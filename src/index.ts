@@ -4,14 +4,19 @@ import { cors } from 'hono/cors'
 function generateCode() {
   const letter = String.fromCharCode(65 + Math.floor(Math.random() * 26))
   const digits = Math.floor(10000 + Math.random() * 90000)
-  return `${letter}:${digits}`
+  return `${letter}${digits}`
 }
 
 const app = new Hono()
 
-// Enable CORS globally
+const allowedOrigins = [
+  'http://localhost:*',
+  'https://timed.cc',
+];
+
 app.use('*', cors({
-  origin: '*', // Allow all origins
+  origin: allowedOrigins,
+  allowMethods: ['GET', 'POST'],
 }))
 
 app.get('/', (c) => {

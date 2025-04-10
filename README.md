@@ -58,7 +58,7 @@ Create a new short link.
 
 ```js
 {
-  "code": "A:12345",
+  "code": "A12345",
   "expiresAt": 1699999999999
 }
 ```
@@ -73,7 +73,7 @@ Resolve a short code to its original URL.
 
 ```js
 {
-  "code": "A:12345"
+  "code": "A12345"
 }
 ```
 
