@@ -1,0 +1,98 @@
+# api.timed.cc
+
+Backend API for [timed.cc](https://timed.cc) — a quick cross-device link sharing service using short codes and QR.
+
+This API is built with [Hono](https://hono.dev) and runs on [Cloudflare Workers](https://developers.cloudflare.com/workers/), using [Cloudflare KV](https://developers.cloudflare.com/workers/runtime-apis/kv/) for temporary link storage.
+
+---
+
+## 🔧 Local Development
+
+```bash
+bun i
+bun run dev
+```
+
+## 🚀 Deploy to Cloudflare
+
+```bash
+bun run deploy
+```
+
+## 🧪 API Endpoints
+
+### `POST /create`
+
+Create a new short link.
+
+**Request**: JSON object with the following fields:
+
+- `url`: The URL to be shortened.
+- `custom`: Optional custom short code.
+
+```js
+{
+  "url": "https://example.com"
+}
+```
+
+**Response**: JSON object with the following fields:
+
+- `code`: The generated short code.
+- `url`: The original URL.
+- `expiresAt`: The timestamp when the short link will expire.
+
+```js
+{
+  "code": "A:12345",
+  "url": "https://example.com",
+  "expiresAt": 1699999999999
+}
+```
+
+### `GET /resolve/:code`
+
+Resolve a short code to its original URL.
+
+**Request**: URL parameter `code` (the short code).
+**Response**: JSON object with the following fields:
+
+- `url`: The original URL.
+- `expiresAt`: The timestamp when the short link will expire.
+
+```js
+{
+  "url": "https://example.com",
+  "expiresAt": 1699999999999
+}
+```
+
+### `GET /ping`
+
+Check if the API is running.
+
+**Response**: JSON object with the following fields:
+
+- `status`: The status of the API.
+
+```js
+{
+  "status": "ok",
+  "timestamp": 1699999999999
+}
+```
+
+## 🛡️ Notes
+
+- All codes expire after 5 minutes using KV TTL.
+- CORS is enabled for all origins by default in development.
+- Keys are stored using Cloudflare Workers KV (`c.env.timed`).
+- Use the `/admin/list` endpoint only in local/dev mode — never expose it in production without protection.
+- Error handling is included for invalid input and failed KV access.
+
+## 📦 Tech Stack
+
+- [Bun](https://bun.sh) for the runtime.
+- [Hono](https://hono.dev) for the web framework.
+- [Cloudflare Workers](https://developers.cloudflare.com/workers/) for serverless deployment.
+- [Cloudflare KV](https://developers.cloudflare.com/workers/runtime-apis/kv/) for key-value storage.
