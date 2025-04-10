@@ -14,6 +14,13 @@ app.use('*', cors({
   origin: '*', // Allow all origins
 }))
 
+app.get('/', (c) => {
+  return c.json({
+    message: 'Welcome to the timed.cc API',
+    version: '1.0.0',
+  })
+})
+
 app.get('/admin/list', async (c) => {
   if (c.req.header('x-api-key') !== c.env.ADMIN_KEY) {
     return c.json({

@@ -1,5 +1,7 @@
 {
   "name": "timed-backend",
+  "version": "1.0.0",
+  "description": "An API for the timed.cc application",
   "scripts": {
     "dev": "wrangler dev --host 0.0.0.0",
     "deploy": "wrangler deploy --minify",

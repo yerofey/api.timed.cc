@@ -21,6 +21,22 @@ bun run deploy
 
 ## 🧪 API Endpoints
 
+### `GET /`
+
+Get the API information.
+
+**Response**: JSON object with the following fields:
+
+- `message`: A welcome message.
+- `version`: The version of the API.
+
+```js
+{
+  "message": "Welcome to the timed.cc API",
+  "version": "1.0.0"
+}
+```
+
 ### `POST /create`
 
 Create a new short link.
