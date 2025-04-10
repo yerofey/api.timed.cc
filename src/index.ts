@@ -26,8 +26,8 @@ app.get('/admin/list', async (c) => {
 })
 
 app.post('/create', async (c) => {
-  const { url, customCode } = await c.req.json()
-  if (!url) return c.json({ error: 'Missing URL' }, 400)
+  const { encryptedUrl, customCode } = await c.req.json()
+  if (!encryptedUrl) return c.json({ error: 'Missing encryptedUrl' }, 400)
 
   // generate a random code if customCode is not provided
   let code
@@ -41,14 +41,14 @@ app.post('/create', async (c) => {
   const expiresAt = Date.now() + ttl * 1000
 
   try {
-    await c.env.timed.put(code, JSON.stringify({ url }), { expirationTtl: ttl })
+    await c.env.timed.put(code, JSON.stringify({ encryptedUrl }), { expirationTtl: ttl })
   }
   catch (err) {
     console.error('Error saving to KV:', err)
     return c.json({ error: 'Internal server error' }, 500)
   }
 
-  return c.json({ code, url, expiresAt })
+  return c.json({ code, expiresAt })
 })
 
 app.get('/resolve/:code', async (c) => {
@@ -57,9 +57,7 @@ app.get('/resolve/:code', async (c) => {
 
   if (!result) return c.json({ error: 'Not found or expired' }, 404)
 
-  const { url } = JSON.parse(result)
-
-  return c.json({ url })
+  return c.json(JSON.parse(result))
 })
 
 app.get('/ping', (c) => {

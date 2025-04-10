@@ -27,25 +27,22 @@ Create a new short link.
 
 **Request**: JSON object with the following fields:
 
-- `url`: The URL to be shortened.
-- `custom`: Optional custom short code.
+- `encryptedUrl`: The encrypted URL to be shortened.
 
 ```js
 {
-  "url": "https://example.com"
+  "encryptedUrl": "U2FsdGVkX1/IGvUkIgxEmxSM6kitLRMVCgAroho0bCQqw+HaAcQpGk5X+f2jXMMI"
 }
 ```
 
 **Response**: JSON object with the following fields:
 
 - `code`: The generated short code.
-- `url`: The original URL.
 - `expiresAt`: The timestamp when the short link will expire.
 
 ```js
 {
   "code": "A:12345",
-  "url": "https://example.com",
   "expiresAt": 1699999999999
 }
 ```
@@ -55,15 +52,22 @@ Create a new short link.
 Resolve a short code to its original URL.
 
 **Request**: URL parameter `code` (the short code).
-**Response**: JSON object with the following fields:
 
-- `url`: The original URL.
-- `expiresAt`: The timestamp when the short link will expire.
+- `code`: The short code to resolve.
 
 ```js
 {
-  "url": "https://example.com",
-  "expiresAt": 1699999999999
+  "code": "A:12345"
+}
+```
+
+**Response**: JSON object with the following fields:
+
+- `encryptedUrl`: The encrypted URL.
+
+```js
+{
+  "encryptedUrl": "U2FsdGVkX1/IGvUkIgxEmxSM6kitLRMVCgAroho0bCQqw+HaAcQpGk5X+f2jXMMI"
 }
 ```
 
@@ -74,6 +78,7 @@ Check if the API is running.
 **Response**: JSON object with the following fields:
 
 - `status`: The status of the API.
+- `timestamp`: The current timestamp.
 
 ```js
 {
