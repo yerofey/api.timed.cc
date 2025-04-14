@@ -67,17 +67,6 @@ app.get('/', async (c) => {
   })
 })
 
-app.get('/admin/list', async (c) => {
-  if (c.req.header('x-api-key') !== c.env.ADMIN_KEY) {
-    return c.json({
-      error: 'Unauthorized',
-    }, 401)
-  }
-
-  const keys = await c.env.timed.list()
-  return c.json(keys)
-})
-
 app.post('/create', async (c) => {
   const limited = await rateLimit(c);
   if (limited) return limited;
