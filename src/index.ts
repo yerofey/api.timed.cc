@@ -109,7 +109,16 @@ app.get('/resolve/:code', async (c) => {
 })
 
 app.get('/ping', (c) => {
-  return c.json({ status: 'ok', time: Date.now() })
+  return c.json(
+    { status: 'ok', time: Date.now() },
+    200,
+    { 'Cache-Control': 'no-store' })
 })
 
-export default app
+export default {
+  fetch: app.fetch,
+
+  async scheduled(event: ScheduledEvent, env: any, ctx: ExecutionContext) {
+    await fetch('https://api.timed.cc/ping').catch(() => { });
+  }
+}
