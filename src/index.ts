@@ -116,13 +116,17 @@ app.get('/ping', (c) => {
   return c.json(
     { status: 'ok', time: Date.now() },
     200,
-    { 'Cache-Control': 'no-store' })
+    { 'Cache-Control': 'public, max-age=30' })
 })
 
 export default {
   fetch: app.fetch,
 
   async scheduled(event: ScheduledEvent, env: any, ctx: ExecutionContext) {
+    // warmup the API
     await fetch('https://api.timed.cc/ping').catch(() => { });
+
+    // warmup the KV store
+    await env.timed.get('warmcheck').catch(() => { });
   }
 }

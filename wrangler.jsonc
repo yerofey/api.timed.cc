@@ -16,6 +16,6 @@
   },
   "routes": ["https://api.timed.cc/*"],
   "triggers": {
-    "crons": ["*/5 * * * *"],
+    "crons": ["*/1 * * * *"],
   },
 }
