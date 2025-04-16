@@ -1,7 +1,11 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 
-const app = new Hono()
+export type Env = {
+  timed: KVNamespace
+}
+
+const app = new Hono<{ Bindings: Env }>()
 
 const RATE_LIMIT_WINDOW = 60; // seconds
 const RATE_LIMIT_MAX = 10;    // requests per window per IP
