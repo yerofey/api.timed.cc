@@ -120,6 +120,5 @@ export default {
 
   async scheduled(event: ScheduledEvent, env: any, ctx: ExecutionContext) {
     await fetch('https://api.timed.cc/ping').catch(() => { });
-    console.log('Scheduled ping to timed.cc');
   }
 }
