@@ -109,8 +109,15 @@ app.get('/resolve/:code', async (c) => {
 
   if (!result) return c.json({ error: 'Not found or expired' }, 404)
 
-  return c.json(JSON.parse(result))
-})
+  return c.json(
+    JSON.parse(result),
+    200,
+    {
+      'Cache-Control': 'public, max-age=300',
+      'Content-Type': 'application/json',
+    }
+  )
+});
 
 app.get('/ping', (c) => {
   return c.json(
