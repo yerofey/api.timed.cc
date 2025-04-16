@@ -10,6 +10,10 @@
       "preview_id": "0a9f5ce5b1e3447b8d1fd6fca5ba63f2",
     },
   ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1,
+  },
   "routes": ["https://api.timed.cc/*"],
   "triggers": {
     "crons": ["*/5 * * * *"],
