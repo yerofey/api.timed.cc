@@ -1,8 +1,9 @@
+import { KVNamespace } from '@cloudflare/workers-types'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 
 export type Env = {
-  timed: KVNamespace
+  KV: KVNamespace
 }
 
 const app = new Hono<{ Bindings: Env }>()
@@ -21,13 +22,13 @@ async function rateLimit(c: any): Promise<Response | undefined> {
   const key = `ratelimit:${ip}`;
   const now = Date.now();
 
-  const record = await c.env.timed.get(key, { type: 'json' }) || {
+  const record = await c.env.KV.get(key, { type: 'json' }) || {
     count: 0,
     expires: now + RATE_LIMIT_WINDOW * 1000
   };
 
   if (record.expires < now) {
-    await c.env.timed.put(key, JSON.stringify({
+    await c.env.KV.put(key, JSON.stringify({
       count: 1,
       expires: now + RATE_LIMIT_WINDOW * 1000
     }), {
@@ -46,7 +47,7 @@ async function rateLimit(c: any): Promise<Response | undefined> {
   record.count += 1;
   const safeTtl = Math.max(60, Math.ceil((record.expires - now) / 1000));
 
-  await c.env.timed.put(key, JSON.stringify(record), {
+  await c.env.KV.put(key, JSON.stringify(record), {
     expirationTtl: safeTtl
   });
 }
@@ -83,14 +84,14 @@ app.post('/create', async (c) => {
   let exists
   do {
     code = customCode || generateCode()
-    exists = await c.env.timed.get(code)
+    exists = await c.env.KV.get(code)
   } while (exists)
 
   const ttl = 300
   const expiresAt = Date.now() + ttl * 1000
 
   try {
-    await c.env.timed.put(code, JSON.stringify({ encryptedUrl }), { expirationTtl: ttl })
+    await c.env.KV.put(code, JSON.stringify({ encryptedUrl }), { expirationTtl: ttl })
   }
   catch (err) {
     console.error('Error saving to KV:', err)
@@ -105,7 +106,7 @@ app.get('/resolve/:code', async (c) => {
   if (limited) return limited;
 
   const code = decodeURIComponent(c.req.param('code'))
-  const result = await c.env.timed.get(code)
+  const result = await c.env.KV.get(code)
 
   if (!result) return c.json({ error: 'Not found or expired' }, 404)
 
@@ -129,7 +130,7 @@ app.get('/ping', (c) => {
 
 app.get('/warmup', async (c) => {
   // warmup the KV store
-  await c.env.timed.get('warmcheck').catch(() => { });
+  await c.env.KV.get('warmcheck').catch(() => { });
   return c.json({ status: 'ok' }, 200, { 'Cache-Control': 'public, max-age=30' })
 });
 

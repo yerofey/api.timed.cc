@@ -5,7 +5,7 @@
   "compatibility_date": "2025-04-08",
   "kv_namespaces": [
     {
-      "binding": "timed",
+      "binding": "KV",
       "id": "347939fe375d44a3bdfe3eb1084830f5",
       "preview_id": "0a9f5ce5b1e3447b8d1fd6fca5ba63f2",
     },
