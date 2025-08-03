@@ -117,3 +117,11 @@ Check if the API is running.
 - [Hono](https://hono.dev) for the web framework.
 - [Cloudflare Workers](https://developers.cloudflare.com/workers/) for serverless deployment.
 - [Cloudflare KV](https://developers.cloudflare.com/workers/runtime-apis/kv/) for key-value storage.
+
+## Author
+
+[Yerofey S.](https://github.com/yerofey)
+
+## License
+
+[MIT](https://github.com/yerofey/api.timed.cc/blob/master/LICENSE)
