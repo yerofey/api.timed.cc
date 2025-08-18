@@ -14,8 +14,5 @@
     "enabled": true,
     "head_sampling_rate": 1,
   },
-  "routes": ["https://api.timed.cc/*"],
-  "triggers": {
-    "crons": ["*/1 * * * *"],
-  },
+  "routes": ["https://api.timed.cc/*"]
 }
