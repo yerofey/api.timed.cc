@@ -137,15 +137,4 @@ app.get('/warmup', async (c) => {
 
 export default {
   fetch: app.fetch,
-
-  async scheduled(event: ScheduledEvent, env: any, ctx: ExecutionContext) {
-    try {
-      // warmup the API
-      await fetch('https://api.timed.cc/warmup', {
-        method: 'GET'
-      });
-    } catch (err) {
-      console.warn('Error warming up API:', err);
-    }
-  }
 }
