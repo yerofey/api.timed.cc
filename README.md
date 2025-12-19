@@ -6,20 +6,20 @@ This API is built with [Hono](https://hono.dev) and runs on [Cloudflare Workers]
 
 ---
 
-## 🔧 Local Development
+## Local Development
 
 ```bash
 bun i
 bun run dev
 ```
 
-## 🚀 Deploy to Cloudflare
+## Deploy to Cloudflare
 
 ```bash
 bun run deploy
 ```
 
-## 🧪 API Endpoints
+## API Endpoints
 
 ### `GET /`
 
@@ -103,7 +103,7 @@ Check if the API is running.
 }
 ```
 
-## 🛡️ Notes
+## Notes
 
 - All codes expire after 5 minutes using KV TTL.
 - CORS is enabled for all origins by default in development.
@@ -111,9 +111,9 @@ Check if the API is running.
 - Use the `/admin/list` endpoint only in local/dev mode — never expose it in production without protection.
 - Error handling is included for invalid input and failed KV access.
 
-## 📦 Tech Stack
+## Tech Stack
 
-- [Bun](https://bun.sh) for the runtime.
+- [Bun](https://bun.com) for the runtime.
 - [Hono](https://hono.dev) for the web framework.
 - [Cloudflare Workers](https://developers.cloudflare.com/workers/) for serverless deployment.
 - [Cloudflare KV](https://developers.cloudflare.com/workers/runtime-apis/kv/) for key-value storage.
