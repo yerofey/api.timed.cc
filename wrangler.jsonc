@@ -7,12 +7,12 @@
     {
       "binding": "KV",
       "id": "347939fe375d44a3bdfe3eb1084830f5",
-      "preview_id": "0a9f5ce5b1e3447b8d1fd6fca5ba63f2",
-    },
+      "preview_id": "0a9f5ce5b1e3447b8d1fd6fca5ba63f2"
+    }
   ],
   "observability": {
     "enabled": true,
-    "head_sampling_rate": 1,
+    "head_sampling_rate": 1
   },
   "routes": ["https://api.timed.cc/*"]
 }
