@@ -114,7 +114,11 @@ app.get('/resolve/:code', async (c) => {
   if (limited) return limited;
 
   const code = decodeURIComponent(c.req.param('code'));
-  const result = await c.env.KV.get(code);
+  let result = await c.env.KV.get(code);
+
+  if (!result) {
+    result = await c.env.KV.get(code.toUpperCase());
+  }
 
   if (!result) return c.json({ error: 'Not found or expired' }, 404);
 
@@ -131,8 +135,7 @@ app.get('/ping', (c) => {
 });
 
 app.get('/warmup', async (c) => {
-  // warmup the KV store
-  await c.env.KV.get('warmcheck').catch(() => {});
+  await c.env.KV.get('warmcheck').catch(() => { });
   return c.json({ status: 'ok' }, 200, {
     'Cache-Control': 'public, max-age=30',
   });
