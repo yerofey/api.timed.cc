@@ -9,14 +9,14 @@
     "lint": "eslint src --ext .ts"
   },
   "dependencies": {
-    "hono": "^4.9.2"
+    "hono": "^4.11.1"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250816.0",
-    "eslint": "^9.33.0",
+    "@cloudflare/workers-types": "^4.20251219.0",
+    "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
-    "prettier": "^3.6.2",
-    "wrangler": "^4.30.0"
+    "prettier": "^3.7.4",
+    "wrangler": "^4.56.0"
   }
 }
